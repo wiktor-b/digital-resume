@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Page sizing for PDF export */
+@page {
+  size: A4;
+  /* No global top margin; bottom margin stays */
+  margin: 0;
+}
+
+/* Screen preview helpers */
+body {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Better PDF text rendering */
+* {
+  -webkit-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  -webkit-font-kerning: normal;
+  font-kerning: normal;
+}
+
+@media print {
+  .screen-only {
+    display: none !important;
+  }
+  .sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+  html,
+  body {
+    width: 210mm;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+  }
+  
+  /* Ensure text remains selectable */
+  * {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+    font-synthesis: none !important;
+    -webkit-text-stroke: 0 !important;
+    text-stroke: 0 !important;
+    font-smooth: never !important;
+    -webkit-font-variant-ligatures: none !important;
+    font-variant-ligatures: none !important;
+  }
+  
+  /* Disable Google Fonts and force system fonts for PDF compatibility */
+  @font-face {
+    font-display: none;
+  }
+  
+  * {
+    font-family: 'Times New Roman', Times, serif !important;
+  }
+  
+  .font-heading, h1, h2, h3, h4, h5, h6 {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-weight: bold !important;
+  }
+  
+  .font-body, p, span, div, li, td, th {
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+  
+  /* Disable any web font loading */
+  link[href*="fonts.googleapis.com"],
+  link[href*="fonts.gstatic.com"] {
+    display: none !important;
+  }
+  /* Fix for sidebar border to be full height for print */
+  .print-bg-sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    border-right: 1px solid rgb(212 212 212/1);
+    z-index: -1;
+  }
+  /* Repeat vertical offset (top and bottom) on right column across printed pages */
+  .repeat-offset {
+    --repeat-offset: 8mm;
+    padding-top: var(--repeat-offset);
+    padding-bottom: var(--repeat-offset);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    /* neutralize the extra padding at the start and end */
+    margin-top: calc(var(--repeat-offset) * -1);
+    margin-bottom: calc(var(--repeat-offset) * -1);
+  }
+}
+
+/* Utility for fine separators */
+.hairline {
+  border-width: 1px;
+}
+
+/* Prevent items from splitting across pages */
+.avoid-break {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Optional class to force a page break when needed */
+.page-break {
+  break-after: page;
+  page-break-after: always;
+}
