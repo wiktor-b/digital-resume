@@ -49,8 +49,13 @@ const languages =
         <div class="flex justify-center md:justify-start">
           <img
             src={profile.avatarUrl}
+            srcset={`${profile.avatarUrl} 2x`}
+            width="176"
+            height="176"
+            decoding="async"
+            fetchpriority="high"
             alt={profile.name}
-            class="w-44 h-44 rounded-full object-cover ring-4 ring-accent/60 shadow-md"
+            class="w-44 h-44 rounded-full object-cover ring-4 ring-accent/60 shadow-md [image-rendering:auto]"
           />
         </div>
         <div>
