@@ -5,7 +5,6 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   site: "https://wiktor-b.github.io",
-  base: "/digital-resume",
   integrations: [
     tailwind({
       applyBaseStyles: true,
